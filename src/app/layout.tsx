@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Brood",
     images: [
       {
-        url: "/assets/logo-bg.png", // Use the official logo with a background
+        url: "/assets/logo-bg.png?v=2", // Use the official logo with a background
         width: 500,
         height: 500,
         alt: "Brood Tunisie - Logo Officiel",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brood | La Mixologie Créative",
     description: "Froid. Frais. Brood. L'expérience ultime de mixologie pour vos événements.",
-    images: ["/assets/logo-bg.png"],
+    images: ["/assets/logo-bg.png?v=2"],
   },
   robots: {
     index: true,
