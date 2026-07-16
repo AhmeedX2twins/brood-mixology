@@ -1,13 +1,18 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { ArrowRight, ArrowLeft, Check, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 type EventType = "Mariage" | "Fête Privée" | "Corporate" | "";
 
-export default function BookingForm() {
+interface BookingFormProps {
+  preSelectedFormula?: string;
+  onClearFormula?: () => void;
+}
+
+export default function BookingForm({ preSelectedFormula, onClearFormula }: BookingFormProps) {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [eventType, setEventType] = useState<EventType>("");
@@ -15,15 +20,41 @@ export default function BookingForm() {
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const totalSteps = 4;
 
+  const gradientAnimationCss = `
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animate-gradient-bg {
+      background-size: 200% 200%;
+      animation: gradientMove 3s ease infinite;
+    }
+    .glowing-summer-gradient {
+      background: linear-gradient(270deg, #FF5252, #00E5FF, #66BB6A);
+      background-size: 600% 600%;
+      animation: gradientMove 8s ease infinite;
+    }
+  `;
+
   const nextStep = () => {
-    if (step < totalSteps) setStep(step + 1);
+    if (step < totalSteps) {
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => {
-    if (step > 1) setStep(step - 1);
+    if (step > 1) {
+      setStep(step - 1);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -31,7 +62,13 @@ export default function BookingForm() {
     setIsSubmitting(true);
 
     const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID || process.env.NEXT_PUBLIC_FORMSPREE_KEY || "placeholder-id";
-    const data = { name, eventType, guests, phone };
+    const data = { 
+      name, 
+      eventType, 
+      guests, 
+      phone, 
+      selectedFormula: preSelectedFormula || "Sur-mesure"
+    };
 
     try {
       if (formId === "placeholder-id") {
@@ -82,13 +119,72 @@ export default function BookingForm() {
           </motion.div>
         </motion.div>
       </div>
-      <div className="relative z-10 w-full max-w-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 md:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,119,182,0.3)]">
-        
+      <div className="relative z-10 w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl shadow-cyan-500/10">
+        <style>{gradientAnimationCss}</style>
+        {/* Prominent Neon Formula Banner */}
+        {!isSuccess && (
+          <div className="mb-10 w-full relative group">
+            {preSelectedFormula ? (
+              <div className="relative w-full rounded-2xl bg-gradient-to-r from-[#FF0055]/50 via-[#00E5FF]/50 to-[#00FF88]/50 animate-gradient-bg p-[2px] shadow-[0_0_30px_rgba(0,229,255,0.4)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF0055] via-[#00E5FF] to-[#00FF88] rounded-2xl blur-md opacity-50 group-hover:opacity-70 transition-opacity animate-gradient-bg"></div>
+                <div className="relative bg-[#050B18]/40 backdrop-blur-xl rounded-[14px] p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#FF0055] via-[#00E5FF] to-[#00FF88] animate-gradient-bg flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                      <span className="text-xl">🎯</span>
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[#00FF88] text-[10px] uppercase tracking-widest font-bold mb-1">Formule Sélectionnée</p>
+                      <h4 className="text-white font-montserrat font-bold text-lg md:text-xl leading-none">{preSelectedFormula}</h4>
+                    </div>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const offersSection = document.getElementById("event-offers");
+                      if (offersSection) {
+                        offersSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                      if (onClearFormula) onClearFormula();
+                    }}
+                    className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/20 text-white text-xs font-bold uppercase tracking-wider hover:bg-[#00E5FF]/20 hover:border-[#00E5FF] hover:text-[#00E5FF] transition-all"
+                  >
+                    Modifier 🔄
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="relative w-full rounded-2xl p-[2px] shadow-[0_0_20px_rgba(255,82,82,0.3)] glowing-summer-gradient">
+                <div className="absolute inset-0 rounded-2xl blur-md opacity-50 glowing-summer-gradient"></div>
+                <div className="relative bg-white/10 backdrop-blur-xl rounded-[14px] p-5 flex items-center justify-between border border-white/20">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center shadow-lg">
+                      <span className="text-sm">✨</span>
+                    </div>
+                    <div>
+                      <p className="text-white text-[10px] uppercase tracking-widest font-bold mb-0.5">Formule</p>
+                      <h4 className="text-white font-montserrat font-bold text-sm">Sur-mesure (À configurer ci-dessous)</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Form Header */}
+        {!isSuccess && (
+          <div className="text-center mb-8">
+            <h3 className="text-sm md:text-base font-montserrat font-bold text-white/80 drop-shadow-md mb-2 uppercase tracking-[0.2em]">Concevons votre événement ensemble</h3>
+            <p className="text-white/60 text-xs font-medium">Demandez votre devis gratuit en quelques secondes.</p>
+          </div>
+        )}
+
         {/* Progress Bar */}
         {!isSuccess && (
-          <div className="w-full h-1 bg-white/20 rounded-full mb-12 overflow-hidden">
+          <div className="w-full h-1.5 bg-white/10 rounded-full mb-12 overflow-hidden shadow-inner">
             <motion.div 
-              className="h-full bg-[#FFB703]"
+              className="h-full bg-gradient-to-r from-[#00E5FF] to-[#FFEE55] rounded-full"
               initial={{ width: "0%" }}
               animate={{ width: `${(step / totalSteps) * 100}%` }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -140,9 +236,11 @@ export default function BookingForm() {
                     exit={{ opacity: 0, y: -20 }}
                     className="space-y-8"
                   >
-                    <h3 className="text-3xl md:text-4xl font-montserrat font-bold text-white text-center drop-shadow-sm">
-                      Type d'événement ?
-                    </h3>
+                    <div className="text-center">
+                      <h3 className="text-3xl md:text-4xl font-montserrat font-bold text-white drop-shadow-sm mb-4">
+                        Type d'événement ?
+                      </h3>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {["Mariage", "Fête Privée", "Corporate"].map((type) => (
                         <button
@@ -217,37 +315,46 @@ export default function BookingForm() {
               </AnimatePresence>
 
               {/* Navigation Controls */}
-              <div className="flex justify-between mt-12">
-                {step > 1 ? (
-                  <button
-                    type="button"
-                    onClick={prevStep}
-                    className="p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20"
-                  >
-                    <ArrowLeft size={24} />
-                  </button>
-                ) : (
-                  <div />
-                )}
-
-                <button
-                  type="submit"
-                  disabled={
-                    (step === 1 && !name) || 
-                    (step === 2 && !eventType) || 
-                    (step === 4 && !phone) || 
-                    isSubmitting
-                  }
-                  className="px-8 py-4 bg-[#FFB703] text-white font-bold font-montserrat rounded-full flex items-center gap-2 hover:bg-[#FB8500] transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(255,183,3,0.3)]"
-                >
-                  {isSubmitting ? (
-                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                  ) : step === totalSteps ? (
-                    <>Envoyer <Check size={20} /></>
+              <div className="flex flex-col items-end gap-2 mt-12 w-full">
+                <div className="flex justify-between w-full">
+                  {step > 1 ? (
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20"
+                    >
+                      <ArrowLeft size={24} />
+                    </button>
                   ) : (
-                    <>Suivant <ArrowRight size={20} /></>
+                    <div />
                   )}
-                </button>
+
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    disabled={!mounted ? false : Boolean(
+                      (step === 1 && !name) || 
+                      (step === 2 && !eventType) || 
+                      (step === 4 && !phone) || 
+                      isSubmitting
+                    )}
+                    className="px-8 py-4 bg-gradient-to-r from-[#FFEE55] to-[#FFD54F] text-[#050B18] font-black font-montserrat uppercase tracking-wider rounded-full flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(255,238,85,0.3)] border border-[#FFD54F]/50"
+                  >
+                    {isSubmitting ? (
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                    ) : step === totalSteps ? (
+                      <>Envoyer <Check size={20} /></>
+                    ) : (
+                      <>Suivant <ArrowRight size={20} /></>
+                    )}
+                  </motion.button>
+                </div>
+                {step === totalSteps && (
+                  <p className="text-[10px] md:text-xs text-white/50 font-inter mt-3 text-right w-full">
+                    Besoin d'une réponse immédiate ? Contactez les frères au <a href="tel:+21654791367" className="text-[#FFEE55] font-bold hover:underline">54 791 367</a>.
+                  </p>
+                )}
               </div>
             </motion.form>
           ) : (

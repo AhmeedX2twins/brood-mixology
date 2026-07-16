@@ -1,9 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
+import { useRef, useState, useEffect, MouseEvent } from "react";
 
 export default function StorySection() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 15, mass: 0.1, stiffness: 200 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  const rotateX = useTransform(springY, [-0.5, 0.5], [10, -10]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-10, 10]);
+  
+  const glareX = useTransform(springX, [-0.5, 0.5], [100, 0]);
+  const glareY = useTransform(springY, [-0.5, 0.5], [100, 0]);
+  const background = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`;
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isMobile || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Normalize coordinates from -0.5 to 0.5
+    mouseX.set((x / rect.width) - 0.5);
+    mouseY.set((y / rect.height) - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    if (isMobile) return;
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
     <section id="story" className="relative py-32 px-6 bg-transparent overflow-hidden">
       {/* Background Glows */}
@@ -40,24 +84,40 @@ export default function StorySection() {
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FFB703]/30 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FFB703]/30 to-transparent" />
       
-      <div className="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         
-        {/* Image Container */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-full lg:w-1/2 aspect-[1170/1556] max-w-md mx-auto rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(251,133,0,0.15)]"
-        >
-          <div className="absolute inset-0 bg-[#FFB703]/10 mix-blend-overlay z-10" />
-          <Image 
-            src="/assets/founders.png"
-            alt="Bilel & Taki Chii - Founders of Brood"
-            fill
-            className="object-cover"
-          />
-        </motion.div>
+        {/* Image Container with 3D Perspective */}
+        <div style={{ perspective: 1000 }} className="w-full lg:w-1/2 max-w-md mx-auto">
+          <motion.div 
+            ref={cardRef}
+            initial={{ opacity: 0, y: 50, scale: 0.94 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            whileTap={isMobile ? { scale: 1.02 } : {}}
+            style={{ 
+              rotateX: isMobile ? 0 : rotateX, 
+              rotateY: isMobile ? 0 : rotateY 
+            }}
+            className="relative w-full aspect-[1170/1556] overflow-hidden rounded-3xl shadow-2xl border border-white/10 transform-gpu will-change-transform cursor-pointer"
+          >
+            <div className="absolute inset-0 bg-[#FFB703]/10 mix-blend-overlay z-10 pointer-events-none" />
+            <motion.div 
+              style={{ background }} 
+              className="absolute inset-0 z-20 pointer-events-none mix-blend-soft-light" 
+            />
+            <Image 
+              src="/assets/post-card.webp"
+              alt="Bilel & Taki Chii - Animated Postcard"
+              fill
+              priority={true}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </motion.div>
+        </div>
 
         {/* Text Content */}
         <motion.div 
@@ -101,7 +161,7 @@ export default function StorySection() {
                 <p className="text-[#FFB703] text-xs uppercase tracking-wider font-semibold">The craft kitchen where the magic is bottled.</p>
               </div>
               <div className="bg-[#050B18]/40 border border-white/10 rounded-2xl p-5 backdrop-blur-md hover:bg-[#050B18]/60 transition-all shadow-lg">
-                <h4 className="text-white font-bold font-montserrat mb-1 text-lg">Le Bar de Plage</h4>
+                <h4 className="text-white font-bold font-montserrat mb-1 text-lg">L'Éphémère de Soliman Plage 🌊</h4>
                 <p className="text-white/70 text-sm font-light mb-3">Situé au rond-point de Soliman Plage (Soliman Chatt).</p>
                 <p className="text-[#FFB703] text-xs uppercase tracking-wider font-semibold">The energetic, sunny beach setup right by the coast.</p>
               </div>

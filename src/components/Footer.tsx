@@ -29,7 +29,7 @@ export default function Footer() {
       </motion.div>
 
       {/* Footer Content */}
-      <div className="relative z-10 w-full px-6 pb-24 pt-32 text-center text-white/80 font-inter flex flex-col items-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 pb-24 pt-32 text-center text-white/80 font-inter flex flex-col items-center">
         <div className="relative w-48 h-48 md:w-56 md:h-56 mb-2">
           <Image 
             src="/assets/500 500px official logo without a background.png" 
@@ -47,14 +47,22 @@ export default function Footer() {
             <p className="text-white/80 text-xs font-light">À côté du restaurant El Karwi</p>
           </div>
           <div className="text-center">
-            <h4 className="text-white font-bold font-montserrat text-sm mb-1 drop-shadow-md">📍 Le Bar de Plage</h4>
+            <h4 className="text-white font-bold font-montserrat text-sm mb-1 drop-shadow-md">📍 L'Éphémère de Soliman Plage 🌊</h4>
             <p className="text-white/80 text-xs font-light">Rond-point de Soliman Plage</p>
           </div>
         </div>
         
-        <p className="text-sm md:text-base font-inter text-white mb-8 border border-white/20 px-6 py-2 rounded-full backdrop-blur-sm bg-black/20">
+        <p className="text-sm md:text-base font-inter text-white mb-6 border border-white/20 px-6 py-2 rounded-full backdrop-blur-sm bg-black/20">
           Ouvert tous les jours de <span className="font-bold text-white">16h00 à 02h00</span>
         </p>
+
+        {/* Telephone Section */}
+        <div className="text-sm text-white/80 font-inter mb-8">
+          <span className="font-semibold text-white">📞 Contact : </span>
+          <a href="tel:+21654791367" className="hover:text-[#00E5FF] transition-colors">54 791 367</a>
+          <span> / </span>
+          <a href="tel:+21653023739" className="hover:text-[#00E5FF] transition-colors">53 023 739</a>
+        </div>
 
         <div className="flex justify-center gap-8 mb-8 font-medium relative z-50">
           <a href="https://www.instagram.com/brood_tn/" target="_blank" rel="noopener noreferrer" className="hover:text-[#00E5FF] hover:scale-105 transition-all duration-300 text-lg">

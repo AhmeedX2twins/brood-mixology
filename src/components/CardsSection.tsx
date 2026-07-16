@@ -9,14 +9,14 @@ export default function CardsSection() {
       id: "beach",
       title: "L'Esprit Plage",
       subtitle: "Fait Maison • 100% Tunisien",
-      src: "/assets/2.png",
+      src: "/assets/Brood store image.svg",
       color: "from-[#00E5FF]/60 to-transparent",
     },
     {
       id: "vice",
       title: "L'Énergie Nocturne",
       subtitle: "Events Levelled Up",
-      src: "/assets/1.png",
+      src: "/assets/Brood GTA 6 poster.svg",
       color: "from-[#FF00FF]/50 to-transparent",
     }
   ];
@@ -27,27 +27,27 @@ export default function CardsSection() {
       <div className="absolute top-1/2 left-1/2 w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-[#00E5FF]/20 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2" style={{ willChange: "transform" }} />
 
       {/* Floating 3D Assets */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden transform-gpu">
         <motion.div className="absolute top-[30%] left-[5%] w-16 h-16 md:w-24 md:h-24 opacity-50 blur-[1px]">
-          <motion.div animate={{ rotate: 180, y: [0, 25, 0] }} transition={{ repeat: Infinity, duration: 15, ease: "linear" }} className="w-full h-full relative">
+          <motion.div animate={{ rotate: 180, y: [0, 25, 0] }} transition={{ repeat: Infinity, duration: 15, ease: "linear" }} className="w-full h-full relative will-change-transform">
             <Image src="/assets/3d ice 2.png" alt="Ice" fill className="object-contain" />
           </motion.div>
         </motion.div>
 
         {/* Floating Fruits */}
         <motion.div className="absolute top-[10%] right-[15%] w-12 h-12 md:w-20 md:h-20 opacity-40">
-          <motion.div animate={{ rotate: -90, x: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 21, ease: "linear" }} className="w-full h-full relative">
+          <motion.div animate={{ rotate: -90, x: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 21, ease: "linear" }} className="w-full h-full relative will-change-transform">
             <Image src="/assets/500 500px manga2 (no bg).png" alt="Manga" fill className="object-contain" />
           </motion.div>
         </motion.div>
         <motion.div className="absolute bottom-[20%] right-[5%] w-14 h-14 md:w-16 md:h-16 opacity-30 mix-blend-screen">
-          <motion.div animate={{ rotate: 360, y: [0, -25, 0] }} transition={{ repeat: Infinity, duration: 18, ease: "linear" }} className="w-full h-full relative">
+          <motion.div animate={{ rotate: 360, y: [0, -25, 0] }} transition={{ repeat: Infinity, duration: 18, ease: "linear" }} className="w-full h-full relative will-change-transform">
             <Image src="/assets/500 500px coconut (no bg).png" alt="Coconut" fill className="object-contain" />
           </motion.div>
         </motion.div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ export default function CardsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center justify-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-16 items-center justify-center max-w-5xl mx-auto">
           {cards.map((card, index) => (
             <motion.div
               key={card.id}
@@ -71,13 +71,15 @@ export default function CardsSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
               whileHover={{ y: -10, scale: 1.02 }}
-              className="relative w-full aspect-[3/4] md:aspect-[4/5] rounded-[2.5rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,119,182,0.4)] cursor-pointer"
+              className="relative w-full aspect-[1170/1556] rounded-3xl overflow-hidden group shadow-[0_30px_60px_rgba(0,119,182,0.4)] cursor-pointer"
             >
               {/* Image */}
               <Image 
                 src={card.src}
                 alt={card.title}
                 fill
+                priority={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               

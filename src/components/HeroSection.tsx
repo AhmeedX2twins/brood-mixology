@@ -61,8 +61,7 @@ export default function HeroSection() {
     <section 
       id="hero" 
       ref={containerRef}
-      // Pulled everything to the top of the DOM to remove empty space and reveal more of the cups
-      className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-8 z-10 pointer-events-none transform-gpu"
+      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-start pt-8 z-10 pointer-events-none transform-gpu"
     >
       {/* Optimized Glows: Reduced blur radius and used will-change */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[50vw] bg-[#00E5FF]/30 blur-[100px] rounded-full pointer-events-none" style={{ willChange: "transform" }} />
@@ -145,8 +144,10 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Typography - Brought higher up and z-index increased */}
-      <div className="z-[70] text-center px-4 max-w-5xl mx-auto mb-0 relative pointer-events-none">
+      {/* Global Bounding Box for Content */}
+      <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        {/* Typography - Brought higher up and z-index increased */}
+        <div className="z-[70] text-center mb-0 relative pointer-events-none">
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -165,7 +166,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-lg md:text-2xl font-inter text-white font-medium tracking-[0.3em] uppercase mt-2 drop-shadow-md"
         >
-          Frais. Glacé. <span className="font-bold text-[#FFB703] tracking-[0.3em]">Brood.</span>
+          Froid. Frais, <span className="font-bold text-[#FFB703] tracking-[0.3em]">Brood.</span>
         </motion.p>
       </div>
 
@@ -179,9 +180,10 @@ export default function HeroSection() {
         >
           <Image 
             src="/assets/cup2.png"
-            alt="Brood Red Drink"
+            alt="Brood Premium Drink Red"
             fill
-            priority
+            priority={true}
+            sizes="(max-width: 768px) 75vw, 400px"
             className="object-contain drop-shadow-[0_20px_40px_rgba(255,0,85,0.3)]"
           />
         </motion.div>
@@ -196,10 +198,13 @@ export default function HeroSection() {
             alt="Brood Premium Drink"
             fill
             priority
+            sizes="(max-width: 768px) 75vw, 400px"
             className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           />
         </motion.div>
         
+      </div>
+      {/* End Global Bounding Box */}
       </div>
       
       {/* Bottom Gradient Fade blending into Menu section */}
