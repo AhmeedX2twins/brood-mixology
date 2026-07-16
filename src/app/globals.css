@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #0077B6; /* Deep ocean blue */
+  --color-brand-cyan: #00E5FF; /* Bright pool cyan */
+  --color-brand-yellow: #FFB703; /* Summer sun yellow */
+  --color-brand-gold: #FB8500; /* Sunset orange */
+  --color-brand-sand: #FDFBF7; /* Sandy white */
+
+  --font-montserrat: var(--font-montserrat);
+  --font-inter: var(--font-inter);
+}
+
+:root {
+  /* We use a dynamic gradient background in layout, so root bg is a fallback */
+  --background: #0077B6;
+  --foreground: #FDFBF7;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+}
