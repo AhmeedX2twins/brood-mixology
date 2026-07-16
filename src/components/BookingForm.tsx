@@ -30,7 +30,7 @@ export default function BookingForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID || "placeholder-id";
+    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID || process.env.NEXT_PUBLIC_FORMSPREE_KEY || "placeholder-id";
     const data = { name, eventType, guests, phone };
 
     try {
