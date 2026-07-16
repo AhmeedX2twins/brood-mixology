@@ -14,26 +14,32 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brood.tn"),
-  title: "Brood | La Mixologie Créative & Bar à Jus Frais en Tunisie",
+  metadataBase: new URL("https://brood-mixology.vercel.app"),
+  title: "Brood | La Mixologie Créative & Bar à Jus Frais",
   description: "Découvrez Brood, l'univers de la mixologie créative. Cocktails rafraîchissants, jus frais et service de bar sur-mesure pour vos mariages et événements privés à Soliman et partout en Tunisie.",
-  keywords: ["Mixologie Tunisie", "Bar à jus Soliman", "Cocktails sans alcool", "Traiteur boisson événementiel", "Brood Soliman Plage", "Jus frais Tunisie", "Bar de mariage", "Boissons healthy"],
+  keywords: ["Mixologie Tunisie", "Bar à jus Soliman", "Cocktails sans alcool", "Traiteur boisson événementiel", "Brood Soliman Plage", "Jus frais Tunisie", "Bar de mariage"],
   authors: [{ name: "Brood" }],
   openGraph: {
     title: "Brood | La Mixologie Créative Tunisienne",
     description: "Froid. Frais. Brood. L'expérience ultime de mixologie pour vos événements.",
-    url: "https://brood.tn",
-    siteName: "Brood Tunisie",
+    url: "https://brood-mixology.vercel.app",
+    siteName: "Brood",
     images: [
       {
-        url: "/assets/post-card.webp",
+        url: "/assets/store-night-brand.png", // Using a high-quality .png fallback as requested
         width: 1200,
         height: 630,
-        alt: "Les fondateurs de Brood - Service pour événements en Tunisie",
+        alt: "L'Univers Brood - Service pour événements en Tunisie",
       },
     ],
     locale: "fr_TN",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brood | La Mixologie Créative",
+    description: "Froid. Frais. Brood. L'expérience ultime de mixologie pour vos événements.",
+    images: ["/assets/store-night-brand.png"],
   },
   robots: {
     index: true,
