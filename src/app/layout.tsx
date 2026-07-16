@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     siteName: "Brood",
     images: [
       {
-        url: "/assets/store-night-brand.png", // Using a high-quality .png fallback as requested
-        width: 1200,
-        height: 630,
-        alt: "L'Univers Brood - Service pour événements en Tunisie",
+        url: "/assets/logo-bg.png", // Use the official logo with a background
+        width: 500,
+        height: 500,
+        alt: "Brood Tunisie - Logo Officiel",
       },
     ],
     locale: "fr_TN",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brood | La Mixologie Créative",
     description: "Froid. Frais. Brood. L'expérience ultime de mixologie pour vos événements.",
-    images: ["/assets/store-night-brand.png"],
+    images: ["/assets/logo-bg.png"],
   },
   robots: {
     index: true,
