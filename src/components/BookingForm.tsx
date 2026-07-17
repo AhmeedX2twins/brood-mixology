@@ -103,8 +103,8 @@ export default function BookingForm({ preSelectedFormula, onClearFormula }: Book
     <section id="events" className="relative py-32 px-4 bg-transparent flex items-center justify-center overflow-hidden">
       
       {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/2 w-[100vw] h-[100vw] md:w-[60vw] md:h-[60vw] bg-[#00E5FF]/15 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2" style={{ willChange: "transform" }} />
-      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] md:w-[30vw] md:h-[30vw] bg-[#FFB703]/10 blur-[100px] rounded-full pointer-events-none translate-y-1/4 -translate-x-1/4" style={{ willChange: "transform" }} />
+      <div className="absolute top-1/2 left-1/2 w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 opacity-15" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] md:w-[25vw] md:h-[25vw] rounded-full pointer-events-none translate-y-1/4 -translate-x-1/4 opacity-10" style={{ background: 'radial-gradient(circle, rgba(255,183,3,0.4) 0%, transparent 70%)' }} />
 
       {/* Floating 3D Ice */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -113,21 +113,21 @@ export default function BookingForm({ preSelectedFormula, onClearFormula }: Book
             <Image src="/assets/3d ice 1.png" alt="Ice" fill className="object-contain" />
           </motion.div>
         </motion.div>
-        <motion.div className="absolute bottom-[15%] right-[10%] w-20 h-20 md:w-32 md:h-32 opacity-40 blur-[3px]">
+        <motion.div className="absolute bottom-[15%] right-[10%] w-20 h-20 md:w-32 md:h-32 opacity-40">
           <motion.div animate={{ rotate: 180, x: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }} className="w-full h-full relative">
             <Image src="/assets/3d ice 2.png" alt="Ice" fill className="object-contain" />
           </motion.div>
         </motion.div>
       </div>
-      <div className="relative z-10 w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl shadow-cyan-500/10">
+      <div className="relative z-10 w-full max-w-2xl bg-[#0a1e2e]/80 border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl shadow-cyan-500/10">
         <style>{gradientAnimationCss}</style>
         {/* Prominent Neon Formula Banner */}
         {!isSuccess && (
           <div className="mb-10 w-full relative group">
             {preSelectedFormula ? (
               <div className="relative w-full rounded-2xl bg-gradient-to-r from-[#FF0055]/50 via-[#00E5FF]/50 to-[#00FF88]/50 animate-gradient-bg p-[2px] shadow-[0_0_30px_rgba(0,229,255,0.4)]">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF0055] via-[#00E5FF] to-[#00FF88] rounded-2xl blur-md opacity-50 group-hover:opacity-70 transition-opacity animate-gradient-bg"></div>
-                <div className="relative bg-[#050B18]/40 backdrop-blur-xl rounded-[14px] p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF0055] via-[#00E5FF] to-[#00FF88] rounded-2xl opacity-50 group-hover:opacity-70 transition-opacity animate-gradient-bg"></div>
+                <div className="relative bg-[#050B18]/80 rounded-[14px] p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#FF0055] via-[#00E5FF] to-[#00FF88] animate-gradient-bg flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.3)]">
                       <span className="text-xl">🎯</span>
@@ -155,8 +155,8 @@ export default function BookingForm({ preSelectedFormula, onClearFormula }: Book
               </div>
             ) : (
               <div className="relative w-full rounded-2xl p-[2px] shadow-[0_0_20px_rgba(255,82,82,0.3)] glowing-summer-gradient">
-                <div className="absolute inset-0 rounded-2xl blur-md opacity-50 glowing-summer-gradient"></div>
-                <div className="relative bg-white/10 backdrop-blur-xl rounded-[14px] p-5 flex items-center justify-between border border-white/20">
+                <div className="absolute inset-0 rounded-2xl opacity-50 glowing-summer-gradient"></div>
+                <div className="relative bg-[#0a1e2e]/80 rounded-[14px] p-5 flex items-center justify-between border border-white/20">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center shadow-lg">
                       <span className="text-sm">✨</span>
@@ -392,7 +392,7 @@ export default function BookingForm({ preSelectedFormula, onClearFormula }: Book
                     ease: "easeOut",
                     delay: Math.random() * 0.5
                   }}
-                  className={`absolute z-50 pointer-events-none rounded-lg ${p.type === 'ice' ? 'bg-white/60 backdrop-blur-md shadow-lg border border-white' : 'bg-[#FFB703]/90 rounded-full border-2 border-[#FB8500]'}`}
+                  className={`absolute z-50 pointer-events-none rounded-lg ${p.type === 'ice' ? 'bg-white/60 shadow-lg border border-white' : 'bg-[#FFB703]/90 rounded-full border-2 border-[#FB8500]'}`}
                   style={{ width: p.type === 'ice' ? 30 : 40, height: p.type === 'ice' ? 30 : 40 }}
                 />
               ))}

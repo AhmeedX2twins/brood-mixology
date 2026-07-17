@@ -50,9 +50,9 @@ export default function StorySection() {
 
   return (
     <section id="story" className="relative py-32 px-6 bg-transparent overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/2 left-0 w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-[#00E5FF]/20 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/4" style={{ willChange: "transform" }} />
-      <div className="absolute bottom-0 right-0 w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-[#00E5FF]/10 blur-[100px] rounded-full pointer-events-none translate-y-1/4 translate-x-1/4" style={{ willChange: "transform" }} />
+      {/* Background Glows — CSS radial gradients, zero blur filter cost */}
+      <div className="absolute top-1/2 left-0 w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/4 opacity-20" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 right-0 w-[50vw] h-[50vw] md:w-[35vw] md:h-[35vw] rounded-full pointer-events-none translate-y-1/4 translate-x-1/4 opacity-10" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.4) 0%, transparent 70%)' }} />
 
       {/* Floating 3D Assets (Ice & Fruits) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden transform-gpu">
@@ -61,7 +61,7 @@ export default function StorySection() {
             <Image src="/assets/3d ice 1.png" alt="Ice" fill className="object-contain" />
           </motion.div>
         </motion.div>
-        <motion.div className="absolute bottom-[25%] left-[5%] w-16 h-16 md:w-24 md:h-24 opacity-50 blur-[2px]">
+        <motion.div className="absolute bottom-[25%] left-[5%] w-16 h-16 md:w-24 md:h-24 opacity-50">
           <motion.div animate={{ rotate: -180, x: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 18, ease: "linear" }} className="w-full h-full relative will-change-transform">
             <Image src="/assets/3d ice 2.png" alt="Ice" fill className="object-contain" />
           </motion.div>
@@ -73,7 +73,7 @@ export default function StorySection() {
             <Image src="/assets/500 500px ananas (no bg).png" alt="Ananas" fill className="object-contain" />
           </motion.div>
         </motion.div>
-        <motion.div className="absolute bottom-[10%] right-[8%] w-14 h-14 md:w-20 md:h-20 opacity-30 blur-[1px]">
+        <motion.div className="absolute bottom-[10%] right-[8%] w-14 h-14 md:w-20 md:h-20 opacity-30">
           <motion.div animate={{ rotate: -90, x: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 19, ease: "linear" }} className="w-full h-full relative mix-blend-screen will-change-transform">
             <Image src="/assets/500 500px coconut (no bg).png" alt="Coconut" fill className="object-contain" />
           </motion.div>
@@ -155,12 +155,12 @@ export default function StorySection() {
               <span className="text-xl">📍</span> Nos Emplacements
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-[#050B18]/40 border border-white/10 rounded-2xl p-5 backdrop-blur-md hover:bg-[#050B18]/60 transition-all shadow-lg">
+              <div className="bg-[#050B18]/60 border border-white/10 rounded-2xl p-5 hover:bg-[#050B18]/70 transition-all shadow-lg">
                 <h4 className="text-white font-bold font-montserrat mb-1 text-lg">L'Atelier</h4>
                 <p className="text-white/70 text-sm font-light mb-3">Situé juste à côté du restaurant El Karwi, Soliman.</p>
                 <p className="text-[#FFB703] text-xs uppercase tracking-wider font-semibold">The craft kitchen where the magic is bottled.</p>
               </div>
-              <div className="bg-[#050B18]/40 border border-white/10 rounded-2xl p-5 backdrop-blur-md hover:bg-[#050B18]/60 transition-all shadow-lg">
+              <div className="bg-[#050B18]/60 border border-white/10 rounded-2xl p-5 hover:bg-[#050B18]/70 transition-all shadow-lg">
                 <h4 className="text-white font-bold font-montserrat mb-1 text-lg">L'Éphémère de Soliman Plage 🌊</h4>
                 <p className="text-white/70 text-sm font-light mb-3">Situé au rond-point de Soliman Plage (Soliman Chatt).</p>
                 <p className="text-[#FFB703] text-xs uppercase tracking-wider font-semibold">The energetic, sunny beach setup right by the coast.</p>

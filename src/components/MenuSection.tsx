@@ -78,7 +78,7 @@ const menuCategories = [
   }
 ];
 
-const noiseSvg = `data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E`;
+// REMOVED: feTurbulence SVG noise texture — catastrophically expensive GPU filter
 
 export default function MenuSection() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
@@ -113,7 +113,7 @@ export default function MenuSection() {
         </motion.div>
 
         <motion.div 
-          className="absolute top-[40%] right-[-10%] md:right-[-15%] z-0 pointer-events-none w-24 h-24 md:w-36 md:h-36 blur-md transform-gpu will-change-transform opacity-60"
+          className="absolute top-[40%] right-[-10%] md:right-[-15%] z-0 pointer-events-none w-24 h-24 md:w-36 md:h-36 transform-gpu opacity-40"
           animate={{ y: [0, 30, 0], rotate: [0, -20, 20, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
@@ -156,16 +156,13 @@ export default function MenuSection() {
                   onClick={() => toggleCategory(cat.category)}
                   className={`relative z-10 flex justify-between items-center w-full p-6 md:p-8 rounded-2xl transition-all duration-300 transform-gpu overflow-hidden
                     ${isOpen 
-                      ? 'bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 border-t border-l border-white/40 border-b border-r border-[#00E5FF]/50 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),0_15px_30px_rgba(0,229,255,0.2)] rounded-b-none backdrop-blur-3xl' 
-                      : 'bg-white/[0.03] border-t border-l border-white/20 border-b border-r border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_20px_rgba(0,0,0,0.3)] hover:bg-white/[0.06] backdrop-blur-2xl'
+                      ? 'bg-[#0a2a3d]/90 border border-[#00E5FF]/40 shadow-[inset_0_2px_4px_rgba(255,255,255,0.15),0_15px_30px_rgba(0,229,255,0.15)] rounded-b-none' 
+                      : 'bg-[#0a1e2e]/70 border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_16px_rgba(0,0,0,0.3)] hover:bg-[#0a2a3d]/80'
                     }
                   `}
                 >
-                  {/* Glass Texture Overlay */}
-                  <div 
-                    className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" 
-                    style={{ backgroundImage: `url("${noiseSvg}")` }} 
-                  />
+                  {/* Subtle top-edge highlight for glass feel (zero GPU cost) */}
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
                   <span className="relative z-10 text-xl md:text-2xl font-black text-white uppercase tracking-widest text-left drop-shadow-md">
                     {cat.category}
@@ -185,13 +182,7 @@ export default function MenuSection() {
                   `}
                 >
                   <div className="overflow-hidden">
-                    <div className="relative flex flex-col gap-6 p-6 md:p-8 bg-black/60 rounded-b-2xl border-x border-b border-white/10 shadow-[inset_0_20px_20px_-20px_rgba(0,0,0,0.5),0_30px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-                      
-                      {/* Interior Glass Texture */}
-                      <div 
-                        className="absolute inset-0 opacity-[0.02] mix-blend-overlay pointer-events-none" 
-                        style={{ backgroundImage: `url("${noiseSvg}")` }} 
-                      />
+                    <div className="relative flex flex-col gap-6 p-6 md:p-8 bg-[#060e15]/90 rounded-b-2xl border-x border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
 
                       {cat.note && (
                         <div className="text-center mb-2 relative z-10">

@@ -40,13 +40,13 @@ export default function HeroSection() {
   // Optimize Performance: Use simple translation
   const bgY = useTransform(smoothY, [0, 1000], [0, -200]);
 
-  // Simplify particles for performance (remove backdrop-blur and heavy shadows)
-  const flares = Array.from({ length: 12 }).map((_, i) => ({
+  // Simplified particles — 6 instead of 12 to cut animation overhead in half
+  const flares = Array.from({ length: 6 }).map((_, i) => ({
     id: i,
-    size: 15 + (i * 3) % 25,
-    left: `${(i * 19) % 100}%`,
+    size: 15 + (i * 5) % 25,
+    left: `${(i * 33) % 100}%`,
     duration: 5 + (i % 3),
-    delay: (i % 4) * 0.5
+    delay: (i % 3) * 0.8
   }));
 
   // Floating Ice Cubes Parallax
@@ -63,14 +63,14 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-[100dvh] w-full flex flex-col items-center justify-start pt-8 z-10 pointer-events-none transform-gpu"
     >
-      {/* Optimized Glows: Reduced blur radius and used will-change */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[50vw] bg-[#00E5FF]/30 blur-[100px] rounded-full pointer-events-none" style={{ willChange: "transform" }} />
-      <div className="absolute top-1/4 right-0 w-[50vw] h-[50vw] bg-[#FFB703]/20 blur-[80px] rounded-full pointer-events-none" style={{ willChange: "transform" }} />
-      <div className="absolute top-1/3 left-0 w-[50vw] h-[50vw] bg-[#FF0055]/15 blur-[80px] rounded-full pointer-events-none" style={{ willChange: "transform" }} />
+      {/* Optimized Glows: CSS radial gradients instead of blur filters */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vw] rounded-full pointer-events-none opacity-30" style={{ background: 'radial-gradient(ellipse, rgba(0,229,255,0.4) 0%, transparent 70%)' }} />
+      <div className="absolute top-1/4 right-0 w-[40vw] h-[40vw] rounded-full pointer-events-none opacity-20" style={{ background: 'radial-gradient(circle, rgba(255,183,3,0.4) 0%, transparent 70%)' }} />
+      <div className="absolute top-1/3 left-0 w-[40vw] h-[40vw] rounded-full pointer-events-none opacity-15" style={{ background: 'radial-gradient(circle, rgba(255,0,85,0.3) 0%, transparent 70%)' }} />
 
       {/* High Performance Particles */}
       {mounted && (
-        <motion.div style={{ y: bgY, willChange: "transform" }} className="absolute inset-0 pointer-events-none">
+        <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none">
           {flares.map((flare) => (
             <motion.div
               key={flare.id}
@@ -87,7 +87,6 @@ export default function HeroSection() {
                 width: flare.size,
                 height: flare.size,
                 left: flare.left,
-                willChange: "transform, opacity"
               }}
             />
           ))}
@@ -114,7 +113,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div style={{ y: ice4Y }} className="absolute bottom-[25%] right-[15%] w-24 h-24 md:w-36 md:h-36 z-20 pointer-events-none">
-        <motion.div animate={{ rotate: 270, y: [0, -25, 0] }} transition={{ repeat: Infinity, duration: 14, ease: "linear" }} className="w-full h-full relative opacity-50 blur-[2px]">
+        <motion.div animate={{ rotate: 270, y: [0, -25, 0] }} transition={{ repeat: Infinity, duration: 14, ease: "linear" }} className="w-full h-full relative opacity-50">
           <Image src="/assets/3d ice 2.png" alt="Ice" fill className="object-contain" />
         </motion.div>
       </motion.div>
@@ -139,7 +138,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div style={{ y: ice5Y }} className="absolute bottom-[40%] left-[8%] w-10 h-10 md:w-16 md:h-16 z-0 pointer-events-none">
-        <motion.div animate={{ rotate: -180, y: [0, 20, 0] }} transition={{ repeat: Infinity, duration: 25, ease: "linear" }} className="w-full h-full relative opacity-50 blur-[1px]">
+        <motion.div animate={{ rotate: -180, y: [0, 20, 0] }} transition={{ repeat: Infinity, duration: 25, ease: "linear" }} className="w-full h-full relative opacity-50">
           <Image src="/assets/500 500px abricot (no bg).png" alt="Abricot" fill className="object-contain" />
         </motion.div>
       </motion.div>

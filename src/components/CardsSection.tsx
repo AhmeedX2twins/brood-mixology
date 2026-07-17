@@ -23,12 +23,12 @@ export default function CardsSection() {
 
   return (
     <section className="relative py-24 px-4 bg-transparent overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/2 w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-[#00E5FF]/20 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2" style={{ willChange: "transform" }} />
+      {/* Background Glow — radial gradient, zero blur cost */}
+      <div className="absolute top-1/2 left-1/2 w-[60vw] h-[60vw] md:w-[35vw] md:h-[35vw] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 opacity-20" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)' }} />
 
       {/* Floating 3D Assets */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden transform-gpu">
-        <motion.div className="absolute top-[30%] left-[5%] w-16 h-16 md:w-24 md:h-24 opacity-50 blur-[1px]">
+        <motion.div className="absolute top-[30%] left-[5%] w-16 h-16 md:w-24 md:h-24 opacity-50">
           <motion.div animate={{ rotate: 180, y: [0, 25, 0] }} transition={{ repeat: Infinity, duration: 15, ease: "linear" }} className="w-full h-full relative will-change-transform">
             <Image src="/assets/3d ice 2.png" alt="Ice" fill className="object-contain" />
           </motion.div>
@@ -88,7 +88,7 @@ export default function CardsSection() {
               
               {/* Text Content */}
               <div className="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <div className="bg-[#023047]/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl border border-white/20">
+                <div className="bg-[#023047]/80 p-6 rounded-3xl shadow-xl border border-white/20">
                   <h3 className="text-2xl font-montserrat font-bold text-white mb-1">
                     {card.title}
                   </h3>

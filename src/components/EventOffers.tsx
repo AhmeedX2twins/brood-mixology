@@ -167,8 +167,8 @@ export default function EventOffers({ onSelectFormula }: EventOffersProps) {
 
   return (
     <section className="relative py-24 px-4 bg-transparent overflow-hidden transform-gpu" id="event-offers">
-      <div className="absolute top-1/4 right-0 w-[40vw] h-[40vw] bg-[#00E5FF]/10 blur-[120px] rounded-full pointer-events-none transform-gpu" />
-      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-[#FFEE55]/5 blur-[120px] rounded-full pointer-events-none transform-gpu" />
+      <div className="absolute top-1/4 right-0 w-[35vw] h-[35vw] rounded-full pointer-events-none transform-gpu opacity-10" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.5) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] rounded-full pointer-events-none transform-gpu opacity-5" style={{ background: 'radial-gradient(circle, rgba(255,238,85,0.4) 0%, transparent 70%)' }} />
 
       {/* Interactive Floating GIF Background Particles */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -223,7 +223,7 @@ export default function EventOffers({ onSelectFormula }: EventOffersProps) {
         <div className="flex justify-center mb-12">
           <motion.div 
             whileHover={{ borderColor: "#00E5FF", boxShadow: "inset 0 0 12px rgba(0, 229, 255, 0.25), 0 8px 32px 0 rgba(5,11,24,0.37)" }}
-            className="bg-white/[0.06] backdrop-blur-xl p-1.5 rounded-full border border-white/[0.12] flex relative shadow-[0_8px_32px_0_rgba(5,11,24,0.37)] transition-colors duration-300"
+            className="bg-[#0a1e2e]/80 p-1.5 rounded-full border border-white/[0.12] flex relative shadow-[0_8px_32px_0_rgba(5,11,24,0.37)] transition-colors duration-300"
           >
             {(["cocktails", "jus"] as Tab[]).map((tab) => (
               <button
@@ -271,7 +271,7 @@ export default function EventOffers({ onSelectFormula }: EventOffersProps) {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
                     key={pack.id} 
-                    className="relative bg-white/[0.06] border border-white/[0.12] rounded-2xl p-5 md:p-6 backdrop-blur-xl flex flex-col transition-all duration-300 group cursor-pointer shadow-[0_8px_32px_0_rgba(5,11,24,0.37)] will-change-transform overflow-hidden"
+                    className="relative bg-[#0a1e2e]/80 border border-white/[0.12] rounded-2xl p-5 md:p-6 flex flex-col transition-all duration-300 group cursor-pointer shadow-[0_8px_32px_0_rgba(5,11,24,0.37)] overflow-hidden"
                     onClick={() => setDrawerPack(pack)}
                   >
                     <div className="flex items-center gap-4 mb-3">
@@ -309,7 +309,7 @@ export default function EventOffers({ onSelectFormula }: EventOffersProps) {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     key={key}
-                    className="bg-white/[0.06] border border-white/[0.12] rounded-2xl p-6 backdrop-blur-xl transition-colors group will-change-transform shadow-[0_8px_32px_0_rgba(5,11,24,0.37)]"
+                    className="bg-[#0a1e2e]/80 border border-white/[0.12] rounded-2xl p-6 transition-colors group shadow-[0_8px_32px_0_rgba(5,11,24,0.37)]"
                   >
                     <div className="mb-5 border-b border-white/10 pb-4">
                       <h3 className="text-xl font-extrabold font-montserrat text-white mb-1 group-hover:text-[#00E5FF] transition-colors">{category.title}</h3>
@@ -364,7 +364,7 @@ export default function EventOffers({ onSelectFormula }: EventOffersProps) {
           {/* Animated gradient border (Red, Blue, Green) */}
           <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0%,#FF0055_25%,#00E5FF_50%,#00FF88_75%,transparent_100%)] animate-[spin_4s_linear_infinite] opacity-100 group-hover:opacity-80 transition-opacity duration-300" />
           
-          <div className="relative bg-white/10 rounded-[14px] p-6 h-full flex flex-col items-stretch gap-6 justify-between z-10 backdrop-blur-xl border border-white/20">
+          <div className="relative bg-[#0a1e2e]/80 rounded-[14px] p-6 h-full flex flex-col items-stretch gap-6 justify-between z-10 border border-white/20">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex-1 text-center sm:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
