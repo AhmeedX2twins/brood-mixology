@@ -90,7 +90,7 @@ export default function MenuSection() {
   return (
     <section id="menu" className="relative z-40 -mt-16 md:-mt-24 min-h-[100dvh] pb-32 px-4 flex flex-col justify-start items-center overflow-hidden bg-transparent font-montserrat">
       
-      {/* LOCAL STYLES FOR MARQUEE */}
+      {/* LOCAL STYLES FOR MARQUEE & HARDWARE-ACCELERATED FLOATING ANIMATIONS */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -99,7 +99,100 @@ export default function MenuSection() {
         .animate-marquee {
           animation: marquee 25s linear infinite;
         }
+        @keyframes float-lazy-1 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(3deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes float-lazy-2 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(20px) rotate(-4deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes float-lazy-3 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-25px) rotate(5deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes float-lazy-4 {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(18px) rotate(-3deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
       `}} />
+
+      {/* STRICT BACKGROUND STACKING CONTEXT (z-[-10]) FOR 3D DECORATIVE ASSETS */}
+      <div className="absolute inset-0 z-[-10] pointer-events-none select-none overflow-hidden">
+        {/* Cold Emoji - Top Left */}
+        <div 
+          className="absolute top-[12%] left-[4%] md:left-[8%] w-20 h-20 md:w-28 md:h-28 opacity-[0.35] transform-gpu"
+          style={{
+            animation: 'float-lazy-1 10s ease-in-out infinite',
+            willChange: 'transform',
+            filter: 'blur(1px)'
+          }}
+        >
+          <Image src="/assets/3d cold emoji.png" alt="Cold Emoji 3D" fill className="object-contain" />
+        </div>
+
+        {/* Small Mojito - Top Right */}
+        <div 
+          className="absolute top-[20%] right-[3%] md:right-[6%] w-24 h-24 md:w-36 md:h-36 opacity-[0.25] transform-gpu"
+          style={{
+            animation: 'float-lazy-2 13s ease-in-out infinite',
+            willChange: 'transform',
+            filter: 'blur(2px)'
+          }}
+        >
+          <Image src="/assets/small mojito 3d emoji.png" alt="Mojito 3D" fill className="object-contain" />
+        </div>
+
+        {/* Grapes - Mid Left */}
+        <div 
+          className="absolute top-[42%] left-[2%] md:left-[5%] w-22 h-22 md:w-30 md:h-30 opacity-[0.45] transform-gpu"
+          style={{
+            animation: 'float-lazy-3 9s ease-in-out infinite',
+            willChange: 'transform'
+          }}
+        >
+          <Image src="/assets/grapes 3d emoji.png" alt="Grapes 3D" fill className="object-contain" />
+        </div>
+
+        {/* Iced Coffee - Mid Right */}
+        <div 
+          className="absolute top-[56%] right-[2%] md:right-[5%] w-24 h-24 md:w-32 md:h-32 opacity-[0.35] transform-gpu"
+          style={{
+            animation: 'float-lazy-4 11s ease-in-out infinite',
+            willChange: 'transform',
+            filter: 'blur(1px)'
+          }}
+        >
+          <Image src="/assets/3d iced coffee brood.png" alt="Iced Coffee 3D" fill className="object-contain" />
+        </div>
+
+        {/* Cherries - Lower Left */}
+        <div 
+          className="absolute top-[72%] left-[5%] md:left-[10%] w-18 h-18 md:w-26 md:h-26 opacity-[0.55] transform-gpu"
+          style={{
+            animation: 'float-lazy-1 8s ease-in-out infinite',
+            willChange: 'transform'
+          }}
+        >
+          <Image src="/assets/cherries 3d emoji.png" alt="Cherries 3D" fill className="object-contain" />
+        </div>
+
+        {/* Banana - Bottom Right */}
+        <div 
+          className="absolute bottom-[4%] right-[4%] md:right-[8%] w-20 h-20 md:w-28 md:h-28 opacity-[0.3] transform-gpu"
+          style={{
+            animation: 'float-lazy-2 14s ease-in-out infinite',
+            willChange: 'transform',
+            filter: 'blur(2px)'
+          }}
+        >
+          <Image src="/assets/banana 3d emoji.png" alt="Banana 3D" fill className="object-contain" />
+        </div>
+      </div>
 
       <div className="w-full max-w-4xl mx-auto z-10 relative pt-12 md:pt-16">
         
