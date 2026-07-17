@@ -48,7 +48,7 @@ export default function NavigationFAB() {
           opacity: isOpen ? 1 : 0 
         }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="fixed bottom-12 left-1/2 w-10 h-10 -ml-5 rounded-full bg-brand-cyan/95 z-40 pointer-events-none"
+        className="fixed bottom-12 left-1/2 w-10 h-10 -ml-5 rounded-full bg-brand-cyan/95 z-[9999] pointer-events-none"
         style={{ originX: 0.5, originY: 0.5 }}
       />
 
@@ -60,7 +60,7 @@ export default function NavigationFAB() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-10">
               {links.map((link, i) => (
@@ -88,7 +88,7 @@ export default function NavigationFAB() {
       <motion.button
         onClick={toggleMenu}
         whileTap={{ scale: 0.9 }}
-        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(64,196,255,0.5)] transition-colors duration-500 ${
+        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[10000] w-16 h-16 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(64,196,255,0.5)] transition-colors duration-500 ${
           isOpen ? "bg-brand-bg text-brand-cyan shadow-none" : "bg-brand-cyan text-brand-bg"
         }`}
       >

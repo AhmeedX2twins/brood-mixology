@@ -9,7 +9,7 @@ export default function CardsSection() {
       id: "beach",
       title: "L'Esprit Plage",
       subtitle: "Fait Maison • 100% Tunisien",
-      src: "/assets/Brood store image.svg",
+      src: "/assets/store.jpg",
       color: "from-[#00E5FF]/60 to-transparent",
     },
     {
