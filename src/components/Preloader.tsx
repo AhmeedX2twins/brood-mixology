@@ -24,20 +24,10 @@ export default function Preloader() {
     };
   }, [phase]);
 
-  // 5000ms Global Failsafe Unmount
-  useEffect(() => {
-    const safetyTimer = setTimeout(() => {
-      setPhase('unmounted');
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    }, 5000);
-    return () => clearTimeout(safetyTimer);
-  }, []);
-
-  // Animate temperature
+  // Animate temperature rapidly (completing in 0.4s)
   useEffect(() => {
     const controls = animate(count, 40, { 
-      duration: 1.5, 
+      duration: 0.4, 
       ease: "easeOut",
       onComplete: () => {
         setPhase('critical');
@@ -47,27 +37,25 @@ export default function Preloader() {
   }, [count]);
 
   const handleExitPreload = () => {
-    if (phase !== 'critical') return;
-    setPhase('shattered');
-    
-    // Clean up from DOM after animation completes
-    setTimeout(() => {
-      setPhase('unmounted');
-    }, 1500); // 1.2s transition + buffer
+    setPhase(prev => {
+      if (prev === 'shattered' || prev === 'unmounted') return prev;
+      
+      // Clean up from DOM after animation completes (500ms duration)
+      setTimeout(() => {
+        setPhase('unmounted');
+      }, 500);
+      
+      return 'shattered';
+    });
   };
 
-  // 4-Second Auto-Advance Failsafe
+  // 1-Second (1000ms) Auto-Dismiss Timeout
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (phase === 'critical') {
-      timer = setTimeout(() => {
-        handleExitPreload();
-      }, 2500);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [phase]);
+    const timer = setTimeout(() => {
+      handleExitPreload();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (phase === 'unmounted') return null;
 
@@ -82,13 +70,14 @@ export default function Preloader() {
         left: 0,
         width: '100vw',
         height: '100dvh',
-        zIndex: 999999,
+        zIndex: 9999999, // Topmost overlay
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        pointerEvents: isShattered ? 'none' : 'auto'
+        pointerEvents: isShattered ? 'none' : 'auto',
+        touchAction: 'none' // Prevent pointer/gesture scrolling issues on mobile
       }}
       initial={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       animate={{ 
@@ -96,9 +85,11 @@ export default function Preloader() {
         scale: isShattered ? 1.05 : 1,
         filter: isShattered ? "blur(10px)" : "blur(0px)"
       }}
-      transition={{ duration: 1.2, ease: "easeInOut" }}
-      className={phase === 'critical' ? 'cursor-pointer' : ''} 
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="cursor-pointer"
       onClick={handleExitPreload}
+      onTouchEnd={handleExitPreload}
+      onPointerDown={handleExitPreload}
     >
       
       {/* Living Heat Background - Moving Gradient */}
@@ -151,7 +142,7 @@ export default function Preloader() {
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: isCritical ? 1 : 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.3 }}
             className="text-[#00E5FF] tracking-[0.2em] uppercase font-semibold animate-pulse"
           >
             [ Cliquer pour Rafraîchir ]
