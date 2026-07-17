@@ -121,7 +121,7 @@ export default function MenuSection() {
         </motion.div>
 
         <motion.div 
-          className="absolute bottom-10 left-[-5%] md:left-[-10%] z-50 pointer-events-none w-20 h-20 md:w-32 md:h-32 transform-gpu will-change-transform"
+          className="absolute bottom-10 left-[-5%] md:left-[-10%] z-20 pointer-events-none w-20 h-20 md:w-32 md:h-32 transform-gpu will-change-transform"
           animate={{ y: [0, -15, 0], rotate: [0, -30, 10, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
@@ -154,7 +154,7 @@ export default function MenuSection() {
                 {/* THE "FREEZER DOOR" CATEGORY HEADER (HYPER-REALISTIC GLASS) */}
                 <button
                   onClick={() => toggleCategory(cat.category)}
-                  className={`relative flex justify-between items-center w-full p-6 md:p-8 rounded-2xl transition-all duration-300 transform-gpu overflow-hidden
+                  className={`relative z-10 flex justify-between items-center w-full p-6 md:p-8 rounded-2xl transition-all duration-300 transform-gpu overflow-hidden
                     ${isOpen 
                       ? 'bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 border-t border-l border-white/40 border-b border-r border-[#00E5FF]/50 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),0_15px_30px_rgba(0,229,255,0.2)] rounded-b-none backdrop-blur-3xl' 
                       : 'bg-white/[0.03] border-t border-l border-white/20 border-b border-r border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_20px_rgba(0,0,0,0.3)] hover:bg-white/[0.06] backdrop-blur-2xl'
@@ -180,7 +180,7 @@ export default function MenuSection() {
 
                 {/* THE 60FPS HEIGHT ANIMATION (CSS GRID) */}
                 <div 
-                  className={`grid transition-[grid-template-rows] duration-500 ease-out transform-gpu relative z-0
+                  className={`grid transition-[grid-template-rows] duration-500 ease-out transform-gpu relative z-30
                     ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}
                   `}
                 >
