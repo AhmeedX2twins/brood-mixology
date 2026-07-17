@@ -175,7 +175,7 @@ export default function HeroSection() {
         {/* Cup 2 (Red Cup) - Left */}
         <motion.div 
           style={{ y: cup2Y, scale: cup2Scale, rotate: cup2Rotate, x: cup2X, willChange: "transform" }}
-          className="absolute w-[70%] max-w-[280px] md:max-w-[400px] aspect-[1080/1920] origin-top translate-x-[-15%]"
+          className="absolute w-[70%] max-w-[280px] md:max-w-[400px] aspect-[1080/1920] origin-top translate-x-[-15%] z-10"
         >
           <Image 
             src="/assets/cup2.png"

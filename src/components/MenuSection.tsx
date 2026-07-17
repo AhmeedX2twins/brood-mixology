@@ -198,7 +198,7 @@ export default function MenuSection() {
         
         {/* AMBIENT 3D ASSETS (Anchored to the max-w container so they perfectly flank the menu) */}
         <motion.div 
-          className="absolute top-28 left-[-10%] md:left-[-15%] z-40 pointer-events-none w-32 h-32 md:w-48 md:h-48 transform-gpu will-change-transform"
+          className="absolute top-28 left-[-10%] md:left-[-15%] z-0 pointer-events-none w-32 h-32 md:w-48 md:h-48 transform-gpu will-change-transform"
           animate={{ y: [0, -25, 0], rotate: [0, 15, -15, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
