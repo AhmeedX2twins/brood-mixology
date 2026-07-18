@@ -13,18 +13,22 @@ const links = [
 
 export default function NavigationFAB() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isShivering, setIsShivering] = useState(true);
+  const [isShivering, setIsShivering] = useState(false);
   
   const { scrollYProgress } = useScroll();
-  // Map scroll progress [0, 1] to subzero temperatures [-5, -25] for Brood brand consistency
-  const temperature = useTransform(scrollYProgress, [0, 1], [-5, -25]);
+  // Map scroll progress [0, 1] to temperature [35, -5]
+  const temperature = useTransform(scrollYProgress, [0, 1], [35, -5]);
   const tempString = useTransform(temperature, (val) => `${Math.round(val)}°C`);
 
-  const emojiScale = useTransform(temperature, [-5, -25], [1.0, 1.15]);
-  const emojiOpacity = 1.0; // Keep the shivering emoji fully visible, bright, and light at all times
+  const emojiScale = useTransform(temperature, [35, -5], [0.85, 1.1]);
+  const emojiOpacity = useTransform(temperature, [35, -5], [0.3, 1]);
   
-  const textColor = "#00E5FF"; // Keep it bright cyan
-  const textShadow = "0px 0px 15px rgba(0,229,255,0.8)"; // Keep the signature icy glow active
+  const textColor = useTransform(temperature, [35, 0, -5], ["#FFF0E0", "#FFFFFF", "#00E5FF"]);
+  const textShadow = useTransform(temperature, [35, 0, -5], [
+    "0px 0px 10px rgba(255,240,224,0.5)", 
+    "0px 0px 10px rgba(255,255,255,0.5)", 
+    "0px 0px 15px rgba(0,229,255,0.8)"
+  ]);
 
   useMotionValueEvent(temperature, "change", (latest) => {
     setIsShivering(latest < 0);
