@@ -21,7 +21,7 @@ export default function NavigationFAB() {
   const tempString = useTransform(temperature, (val) => `${Math.round(val)}°C`);
 
   const emojiScale = useTransform(temperature, [35, -5], [0.85, 1.1]);
-  const emojiOpacity = useTransform(temperature, [35, -5], [0.3, 1]);
+  const emojiOpacity = useTransform(temperature, [35, -5], [0.8, 1]);
   
   const textColor = useTransform(temperature, [35, 0, -5], ["#FFF0E0", "#FFFFFF", "#00E5FF"]);
   const textShadow = useTransform(temperature, [35, 0, -5], [
@@ -104,7 +104,7 @@ export default function NavigationFAB() {
       {/* Subzero Temperature Gauge (Dashboard Pill) */}
       <motion.div 
         whileHover={{ scale: 1.05 }}
-        className="fixed bottom-10 left-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-8 z-50 flex flex-col items-center gap-2 md:gap-3 py-3 md:py-4 px-2.5 md:px-3 rounded-full bg-[#0a1e2e]/80 border border-white/[0.15] shadow-[0_4px_24px_rgba(0,229,255,0.15)] scale-90 md:scale-100 transition-shadow hover:shadow-[0_4px_30px_rgba(0,229,255,0.3)] cursor-pointer"
+        className="fixed bottom-10 left-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-8 z-50 flex flex-col items-center gap-2 md:gap-3 py-3 md:py-4 px-2.5 md:px-3 rounded-full bg-white/[0.08] backdrop-blur-sm border border-white/20 shadow-[0_4px_24px_rgba(0,229,255,0.15)] scale-90 md:scale-100 transition-shadow hover:shadow-[0_4px_30px_rgba(0,229,255,0.3)] cursor-pointer"
       >
         <motion.img 
           src="https://em-content.zobj.net/source/animated-noto-color-emoji/461/cold-face_1f976.gif" 
